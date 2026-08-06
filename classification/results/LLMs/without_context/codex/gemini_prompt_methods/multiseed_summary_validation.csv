@@ -1,0 +1,3 @@
+Prompt_Alias,Model,Model_ID,Runs,Accuracy_Mean,Accuracy_Std,Macro_F1_Mean,Macro_F1_Std,Weighted_F1_Mean,Weighted_F1_Std,MCC_Mean,MCC_Std
+codex_recommendationv0,gemini25flashlite,google/gemini-2.5-flash-lite:nitro,1,0.4615384615384616,,0.4513218896815329,,0.472229258662569,,0.3879324781887932,
+gemini_decision_tree_v0,gemini25flashlite,google/gemini-2.5-flash-lite:nitro,1,0.4444444444444444,,0.4369162806004911,,0.438840594103752,,0.3819975876391012,

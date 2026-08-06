@@ -1,0 +1,150 @@
+Task:
+Classify the SATD comment below into EXACTLY ONE of the predefined categories.
+
+----------------------------------------
+CATEGORY DESCRIPTIONS
+----------------------------------------
+
+- requirement:
+SATD indicating missing, incomplete, or desired functionality, or a desired quality improvement. This category focuses on what the system should do. Use this category when the comment requests a feature, behavior, or quality improvement without identifying a specific implementation, design, configuration, dependency, test, or defect problem.
+
+- code:
+SATD related to local implementation quality. This includes poor readability, local workarounds, duplicated or messy code, inadequate local error handling, or small implementation cleanup. Use this category when the issue is mainly local to a method, block, statement, or small piece of implementation logic.
+
+- test:
+SATD related to test code, test design, test execution, test infrastructure, test coverage, mocks, fixtures, flaky tests, or tests that depend on unavailable services or components. Use this category when the main issue is how the system is tested, not a production defect.
+
+- defect:
+SATD related to known incorrect behavior, bugs, failures, wrong outputs, or broken functionality that is acknowledged but not yet fixed. Use this category even if the defect is caused by an external dependency, when the comment mainly describes wrong system behavior.
+
+- service communication:
+SATD related to application-level communication between services. This includes service-to-service calls, APIs used for invocation, retries, timeouts, error handling of remote calls, hardcoded service endpoints, message exchange, and service discovery. Use this category when the debt concerns how services communicate with each other.
+
+- service operations and deployment:
+SATD related to operating, deploying, and managing running services in a microservice system. This includes service lifecycle management, health checks, monitoring, logging, metrics, tracing, alerting, runtime scaling, runtime resources, runtime parameters, and production service management. Use this category when the issue concerns the operation of a deployed or running service.
+
+- service design:
+SATD related to microservice design decisions. This includes service boundaries, service responsibilities, inter-service contracts, REST/gRPC APIs between services, exchanged schemas, service versioning, and integration mechanisms between services. Use this category when the debt concerns how services are decomposed, connected, or contractually designed.
+
+- infrastructure and pipeline:
+SATD related to engineering infrastructure and delivery automation. This includes build scripts, compilation, dependency build setup, CI/CD workflows, packaging, containerization, deployment automation, Docker/Kubernetes files, environment setup, infrastructure-as-code, and pipeline tooling. Use this category when the debt concerns the infrastructure or automation used to build, package, test, deploy, or run the system.
+
+- design:
+SATD related to internal architecture or design within a system or service. This includes poor modularity, weak abstraction, tight coupling between internal components, internal APIs or interfaces, algorithm design, data modeling, concurrency, resource management, extensibility, and design uncertainty. Use this category when the issue concerns internal structure or design, but not specifically microservice boundaries, contracts, or inter-service integration.
+
+- database access:
+SATD related to database interaction. This includes query construction, query performance, transaction management, connection handling, schema access, and data access patterns affecting integrity, performance, or maintainability.
+
+- compatibility:
+SATD related to preserving or handling behavior across versions, APIs, data formats, frameworks, platforms, environments, or legacy behavior. Use this category when the main concern is backward compatibility, forward compatibility, version-dependent behavior, environment differences, or support for legacy behavior.
+
+- configuration:
+SATD related to missing, incorrect, hardcoded, temporary, or environment-specific configuration values or settings that affect system behavior. Use this category when the main issue is a configuration value or setting itself. Do not use this category when the main concern is security, CI/CD, deployment automation, or runtime service operation.
+
+- dependency:
+SATD related to limitations, constraints, upgrades, missing support, or workarounds caused by external libraries, frameworks, services, APIs, platforms, or third-party components outside the direct control of the system. Use this category when the main issue is reliance on an external dependency.
+
+- security:
+SATD related to weaknesses or limitations in authentication, authorization, access control, cryptography, secrets, permissions, vulnerabilities, denial-of-service protection, service authorization, or temporary security workarounds. Use this category even when the issue is expressed as a security configuration problem.
+
+- unclear:
+Use this category only when the SATD comment and the provided code context do not contain enough information to confidently assign one of the other categories.
+
+----------------------------------------
+TIE-BREAKING RULES
+----------------------------------------
+
+When more than one category seems possible, apply the following rules:
+
+1. Prefer microservice-specific categories over generic categories when the debt explicitly concerns services.
+
+   - Use service design instead of design when the issue concerns service boundaries, service responsibilities, inter-service contracts, schemas exchanged between services, service APIs, service versioning, or integration mechanisms between services.
+
+   - Use service communication instead of infrastructure and pipeline when the issue concerns service-to-service calls, retries, timeouts, discovery, endpoints, remote API invocation, or message exchange.
+
+   - Use service operations and deployment instead of infrastructure and pipeline when the issue concerns operating a running service, such as monitoring, logging, health checks, runtime scaling, service lifecycle, or production runtime management.
+
+2. Use infrastructure and pipeline when the main issue concerns build, CI/CD, packaging, deployment automation, containerization, infrastructure-as-code, environment setup, or pipeline tooling.
+
+3. Use configuration only when the main issue is a configuration value or setting.
+
+   - If the configuration issue mainly affects authentication, authorization, secrets, permissions, or vulnerabilities, use security.
+   - If the configuration issue mainly concerns CI/CD, deployment automation, Docker, Kubernetes, or infrastructure setup, use infrastructure and pipeline.
+   - If the configuration issue mainly concerns runtime operation of a deployed service, use service operations and deployment.
+
+4. Use dependency when the main issue is reliance on an external library, framework, external service, API, platform, or third-party component.
+
+   - Use compatibility instead when the main issue is preserving behavior across versions, platforms, environments, APIs, data formats, frameworks, or legacy behavior.
+   - Use defect instead when the comment explicitly describes a bug, failure, wrong output, or broken behavior caused by a dependency.
+
+5. Use defect when the comment explicitly describes known wrong behavior, a bug, failure, broken behavior, incorrect output, or something that does not work as intended.
+
+6. Use test when the issue concerns test code, test coverage, test execution, test data, mocks, fixtures, flaky tests, or testing infrastructure.
+
+   - If a test fails because the production code is wrong, use defect.
+   - If the test itself is incomplete, unstable, expensive, missing, or poorly designed, use test.
+
+7. Use requirement when the comment asks for missing or incomplete functionality, a new feature, or a general quality improvement without identifying a specific technical cause.
+
+   - If the comment identifies a specific algorithm, architecture, abstraction, data model, or implementation structure problem, use design or code instead.
+
+8. Use code when the debt is local to implementation details, readability, small workarounds, local cleanup, or local error handling.
+
+9. Use design when the debt affects broader internal structure, modularity, abstraction, internal APIs, algorithms, data models, concurrency, extensibility, or resource management inside one service or system.
+
+10. Use unclear only as a last resort when neither the SATD comment nor the code context provides enough evidence to select a specific category.
+
+----------------------------------------
+INSTRUCTIONS
+----------------------------------------
+
+- Your task is to classify the given SATD comment into exactly one category.
+- Use only one label from the CATEGORY NAMES list.
+- The final label must exactly match one of the predefined labels, including spelling and lowercase format.
+- Read the SATD comment first, then use the Code Context to clarify its meaning.
+- Use the category descriptions and tie-breaking rules to decide the best category.
+- Focus on the main technical debt issue expressed by the SATD comment.
+- Do not classify based only on isolated keywords.
+- Do not infer a category that is not supported by the SATD comment or the provided code context.
+- If several categories seem possible, apply the tie-breaking rules.
+- If the SATD comment is very short, generic, or ambiguous, use the code context to disambiguate it.
+- If the comment and context still do not provide enough evidence, choose unclear.
+- Think internally before answering, but do not output your reasoning.
+- Do not explain your answer.
+- Do not return examples, comments, confidence scores, JSON, markdown, or any extra text.
+- Output exactly one line using the required format.
+
+----------------------------------------
+CLASSIFICATION INPUT
+----------------------------------------
+
+Code Context:
+{context}
+
+SATD Comment:
+```text
+{comment}
+
+----------------------------------------
+OUTPUT FORMAT
+----------------------------------------
+
+Final label: <label>
+
+Where <label> must be exactly one of:
+
+requirement
+code
+test
+defect
+service communication
+service operations and deployment
+service design
+infrastructure and pipeline
+design
+database access
+compatibility
+configuration
+dependency
+security
+unclear

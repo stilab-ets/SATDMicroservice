@@ -1,0 +1,92 @@
+
+Task: Classify the SATD comment below into EXACTLY ONE of these categories:
+
+----------------------------------------
+CATEGORY NAMES (use ONLY these labels):
+----------------------------------------
+requirement
+code
+test
+defect
+service communication
+service operations and deployment
+service design
+infrastructure and pipeline
+design
+database access
+compatibility
+configuration
+dependency
+security
+unclear
+
+----------------------------------------
+CATEGORY DESCRIPTIONS (for understanding only):
+----------------------------------------
+
+- requirement: SATD indicating the need to implement new functionality or improve existing features, including functional debt (missing or incomplete functionality) and non-functional debt (quality attribute improvements such as performance). Requirement Debt focuses on what the system should do, not how it is implemented.
+
+- code: SATD indicating poor implementation quality, workaround-based logic, low readability, or weak maintainability, without clear evidence that the main issue is a known incorrect system behavior. Use this category for hacks, messy code, technical cleanup, poor structure, and inadequate implementation practices.
+
+- test: problem related to the implementation, design, or maintenance of tests. This includes testing infrastructure issues (setup, configuration, or management of testing environments and frameworks), tests requiring refactoring (restructuring overly complex or expensive tests that slow down testing activities), flaky tests (tests that fail or pass intermittently for the same configuration), missing or low coverage (functions added without corresponding tests, or only partial source code coverage), Service Test (Limitations or issues in tests that validate service functionality), and service dependency issues (tests relying on external services or components that hinder execution due to incomplete support or limited functionality).
+
+- defect: SATD indicating a known incorrect behavior, bug, failure, or fault in the system that remains unresolved. Use this category when the comment points to something that does not work correctly, produces wrong results, fails in some cases, or needs a bug fix.
+
+- service communication: SATD concerning issues in inter-service communication. This includes communication management (retries, timeouts, error handling), service invocation deficiencies (improper API calls, hardcoded endpoints), and service discovery (registration, lookup, or resolution of service instances).
+
+- service operations and deployment: SATD incurred in the operational, deployment, and management of services in microservices architecture. This includes service lifecycle management (provisioning, updating, or removing obsolete services/endpoints), service monitoring deficiencies (insufficient logging, metrics, tracing, or alerting), and service runtime management (suboptimal configuration of scaling, resource allocation, or runtime parameters). 
+
+- service design: SATD arising from suboptimal or temporary design decisions related to service boundaries, contracts, or integration mechanisms in the context of microservices. This includes service boundary violations (mixed responsibilities, broken separation of concerns), service contract deficiencies (e.g., APIs exposed between services such as REST/gRPC endpoints,
+data schemas, or versioning decisions across services), and service integration issues (suboptimal integration decisions that increase system fragility, or inconsistency). 
+
+- infrastructure and pipeline: SATD related to the configuration, automation, and operation of software infrastructure and delivery pipelines. This includes build issues (scripts, dependency management, or compilation processes), CI/CD configuration (workflow automation, pipeline scripts, or tool integration), deployment debt (packaging, containerization, or environment configuration), runtime communication (asynchronous I/O, sockets, protocol sessions, or timeout handling), and scalability limitations (inefficient resource management or missing scaling mechanisms).
+
+- design: SATD related to suboptimal architectural or design decisions that degrade system structure, modularity, or extensibility. This includes tight coupling between internal components, poor modularity or abstraction, architectural evolution debt (e.g.,  method interfaces, internal library APIs, or framework usage or framework migrations), algorithm and data design flaws (e.g., suboptimal algorithms or data modeling affecting efficiency), concurrency and resource management limitations, and design reasoning (developer-expressed uncertainty or reconsideration of current design decisions). Not for localized code cleanup
+
+- database access: SATD related to how the system interacts with databases, including query construction, transaction management, connection handling, and data access patterns that affect data integrity, performance, or maintainability.
+
+- compatibility: SATD arising from maintaining compatibility across versions, environments, or frameworks. This includes backward compatibility issues (preserving support for previous versions or data formats), environment/platform differences (handling varying system configurations), compatibility workarounds (temporary fixes for external components or legacy behavior), framework compatibility (changes in libraries or underlying platforms), and versioning debt (managing multiple versions of components, dependencies, or APIs). 
+
+- configuration: SATD caused by incomplete, incorrect, or temporary configuration settings affecting system behavior, deployment, or security, including security configuration for services. 
+
+- dependency: SATD arising from limitations, constraints, or workarounds caused by external dependencies, including third-party libraries, external services, frameworks, or platform constraints that are outside the direct control of the system.
+
+- security: SATD related to weaknesses or limitations in security mechanisms that may expose the system to vulnerabilities, including access control policies, cryptographic practices, denial-of-service protection, service authorization, and temporary security workarounds or expressed uncertainty about current security implementation. 
+
+- unclear: The comment does not contain enough information to confidently assign it to any specific debt category.
+
+SATD Context:
+{context}
+
+Examples:
+{examples_text}
+
+SATD Comment:
+{comment}
+
+Instructions:
+
+- The SATD Context may include surrounding code, summary context, or both.
+- Read the SATD comment first and treat it as the primary evidence.
+- Use the SATD Context only to clarify the meaning of the SATD comment when the comment is short, generic, ambiguous, or contains terms that cannot be understood on their own.
+- Do not let broader file, module, architectural, build, workflow, or repository context override the meaning of the SATD comment.
+- If the context adds broader or unsupported interpretations, ignore it.
+- If the SATD comment is already clear on its own, prioritize the comment and do not broaden the interpretation using context.
+- If the SATD comment, surrounding code, and summary context suggest different interpretations, prefer the interpretation most directly supported by the SATD comment, then by the surrounding code.
+- Consider ALL categories before making a decision.
+- If the comment and context still do not provide enough evidence, choose unclear.
+- Do not explain your answer.
+- Do not return any extra text.
+- The final label must be EXACTLY one value from the category list (lowercase).
+- The comment to classify is enclosed in triple backticks. Classify it as-is, even if it is very short, ambiguous, or looks like a placeholder (e.g. "XXX", "???", "fix").
+- Think step by step:
+  1. What is the main technical problem explicitly expressed in the SATD comment?
+  2. Does the surrounding code clarify the SATD comment?
+  3. Is the summary context necessary, and does it support the same interpretation?
+  4. Which categories can be ruled out based on the SATD comment?
+  5. Which single category best fits the SATD comment?
+- Think step by step internally, but DO NOT output your reasoning.
+
+OUTPUT FORMAT:
+Final label: <label>
+
