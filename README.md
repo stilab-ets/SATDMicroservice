@@ -48,7 +48,7 @@ The default configuration is stored in `conf/conf.yml`:
 
 `dataset/projects_finale.xlsx` must contain a `project` column. Each value is expected to use the GitHub `owner/repository` format.
 
-### 2. Extract comments from repository history
+### 2. Extract comments from repositories
 
 Run the following command from the repository root:
 
@@ -63,6 +63,11 @@ python main.py
 - analyzes commits and changed files for the configured languages; and
 - writes extracted comment records as JSON files under `dataset/comments/`.
 
+### 3. Extract SATD 
+
+```bash
+python dentify_SATD_comments.py
+```
 
 ## Component 2: SATD classification
 
@@ -90,7 +95,5 @@ Then run from `classification/`:
 python LLMs/LLMs_eval.py
 ```
 
-The LLM experiments use OpenRouter's OpenAI-compatible API. API usage may incur costs depending on the selected provider and model.
-
-The current working tree includes a local `.env` file and a hard-coded Hugging Face token in `classification/LLMs/k_samples.py`. Remove the hard-coded token, rotate/revoke any exposed credentials, and ensure these files or values are excluded before creating the public repository.
+The LLM experiments use OpenRouter's OpenAI-compatible API. 
 
